@@ -68,7 +68,7 @@ chmod +x build_linux.sh
 
 ## Screenshot
 
-![USBZero GUI](assets/usbzero_gui_preview.png)
+![USBZero GUI](USBZero/assets/usbzero_gui_preview.png)
 
 ## License
 
