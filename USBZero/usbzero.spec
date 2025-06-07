@@ -1,4 +1,3 @@
-
 # -*- mode: python ; coding: utf-8 -*-
 
 block_cipher = None
@@ -7,7 +6,10 @@ a = Analysis(
     ['usbzero_en.py'],
     pathex=[],
     binaries=[],
-    datas=[('flash-drive-blue-converted.png', '.')],
+    datas=[
+        ('assets/usbzero_icon_blue_final_v3.ico', 'assets'),
+        ('assets/flash-drive-blue-converted.png', 'assets')
+    ],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -18,20 +20,22 @@ a = Analysis(
     cipher=block_cipher,
 )
 pyz = PYZ(a.pure, a.zipped_data,
-          cipher=block_cipher)
+             cipher=block_cipher)
 
 exe = EXE(
     pyz,
     a.scripts,
     [],
     exclude_binaries=True,
-    name='usbzero_en',
+    name='USBZero',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
+    upx_exclude=[],
+    runtime_tmpdir=None,
     console=False,
-    icon='usbzero_final_icon_from_blue.png.ico'
+    icon='assets/usbzero_icon_blue_final_v3.ico'
 )
 coll = COLLECT(
     exe,
@@ -41,5 +45,5 @@ coll = COLLECT(
     strip=False,
     upx=True,
     upx_exclude=[],
-    name='usbzero_en'
+    name='USBZero'
 )
