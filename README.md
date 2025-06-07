@@ -1,81 +1,79 @@
-````markdown
-# USBZero 🔒
+# USBZero
 
-**USBZero** is a cross-platform, GUI-based USB wiping tool written in Python. It offers secure, multi-pass data erasure and (on Linux) optional HPA/DCO removal.
+USBZero is a cross-platform GUI-based USB wiping tool built with Python. It offers secure multi-pass erasure for USB drives and supports advanced disk wipe methods.
 
-## 🔥 Features
+## Features
 
-- 💻 CustomTkinter GUI (Dark Mode, Animated Elements)
-- 🔁 Multiple wiping algorithms:
-  - Random (Recommended)
-  - Zero-fill (0x00)
-  - FF-fill (0xFF)
-  - DoD 5220.22-M
-  - Gutmann (35-pass)
-- 🧼 Log generation with SHA-256 signature
-- 📦 PyInstaller-compatible (EXE build support)
-- 🧠 Linux version supports **HPA/DCO removal**
+* Clean and modern GUI (CustomTkinter)
+* Multiple overwrite algorithms:
 
-## 🖥️ Platform Support
+  * Random (Recommended)
+  * 0x00
+  * 0xFF
+  * DoD 5220.22-M
+  * Gutmann (35-pass)
+* Real-time progress and status updates
+* Log file creation (JSON + SHA256 .sig)
+* Linux version supports optional HPA/DCO removal
 
-| Platform | GUI | HPA/DCO Removal | Notes |
-|----------|-----|------------------|-------|
-| Windows  | ✅   | ❌               | Recommended for general users |
-| Linux    | ✅   | ✅               | Requires `sudo` and `hdparm` |
+## Supported Platforms
 
-## 🚀 Usage
+| Platform | GUI | HPA/DCO Support | File              |
+| -------- | --- | --------------- | ----------------- |
+| Windows  | ✅   | ❌               | usbzero\_en.py    |
+| Linux    | ✅   | ✅               | usbzero\_linux.py |
 
-### Windows:
-```bash
-python usbzero_en.py
-````
+## Installation
 
-### Linux:
-
-```bash
-sudo python3 usbzero_linux.py
 ```
-
-> For full functionality on Linux, make sure `hdparm` is installed.
-
-## 🔐 Wipe Logs
-
-All operations are saved in `/logs/` as JSON + `.sig` signature.
-
-## 🧩 Dependencies
-
-Install requirements:
-
-```bash
 pip install -r requirements.txt
 ```
 
-`requirements.txt` content:
+## Run
+
+### Windows
 
 ```
-psutil
-customtkinter
-Pillow
+python usbzero_en.py
 ```
 
-## 🧑‍💻 Author
+### Linux
 
-* GitHub: [ardaispartalioglu](https://github.com/ardaispartalioglu)
+```
+sudo python3 usbzero_linux.py
+```
 
-## 📄 License
+## Build Executable
+
+### Windows
+
+```
+build_windows.bat
+```
+
+### Linux
+
+```
+chmod +x build_linux.sh
+./build_linux.sh
+```
+
+## Requirements
+
+* Python 3.10+
+* psutil
+* customtkinter
+* Pillow
+* hdparm (Linux only)
+
+## Screenshot
+
+![USBZero GUI](assets/usbzero_gui_preview.png)
+
+## License
 
 MIT License
 
-````
+## Author
 
----
-
-### 📦 requirements.txt
-
-```txt
-psutil
-customtkinter
-Pillow
-````
-
----
+github.com/ardaispartalioglu
