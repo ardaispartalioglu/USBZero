@@ -1,3 +1,4 @@
+````markdown
 # USBZero 🔒
 
 **USBZero** is a cross-platform, GUI-based USB wiping tool written in Python. It offers secure, multi-pass data erasure and (on Linux) optional HPA/DCO removal.
@@ -27,3 +28,54 @@
 ### Windows:
 ```bash
 python usbzero_en.py
+````
+
+### Linux:
+
+```bash
+sudo python3 usbzero_linux.py
+```
+
+> For full functionality on Linux, make sure `hdparm` is installed.
+
+## 🔐 Wipe Logs
+
+All operations are saved in `/logs/` as JSON + `.sig` signature.
+
+## 🧩 Dependencies
+
+Install requirements:
+
+```bash
+pip install -r requirements.txt
+```
+
+`requirements.txt` content:
+
+```
+psutil
+customtkinter
+Pillow
+```
+
+## 🧑‍💻 Author
+
+* GitHub: [ardaispartalioglu](https://github.com/ardaispartalioglu)
+
+## 📄 License
+
+MIT License
+
+````
+
+---
+
+### 📦 requirements.txt
+
+```txt
+psutil
+customtkinter
+Pillow
+````
+
+---
