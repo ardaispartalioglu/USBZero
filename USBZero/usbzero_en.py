@@ -201,8 +201,9 @@ def start_process():
         set_controls_state("normal")
         return
 
-    progress.set(0)
     status_label.configure(text="Starting format...")
+    progress.set(0)
+    progress.start()
 
     def update_status(msg):
         app.after(0, lambda: status_label.configure(text=msg))
@@ -213,7 +214,6 @@ def start_process():
     def process():
         update_status("Starting format...")
         if format_usb(selected_drive_letter):
-            progress.set(0.3)
             update_status("Starting data overwrite ({} passes)...".format(passes))
             success, files = True, []
             for p in range(passes):
@@ -223,19 +223,25 @@ def start_process():
                 if not ok:
                     success = False
                     break
-                progress.set(0.3 + 0.6 * ((p+1)/passes))
             if success:
-                progress.set(0.9)
                 update_status("Saving log and finalizing...")
                 if enable_log:
                     save_log(selected_drive_path, algorithm, passes, files, hpa_dco_status, selected_drive_letter)
-                progress.set(1.0)
                 update_status("Wipe process completed.")
+                progress.stop()
+                progress.set(1.0)
                 populate_log_files_list()
                 messagebox.showinfo("Success", f"Drive {selected_drive_path} was successfully wiped.")
             else:
                 update_status("Data overwrite failed.")
+                progress.stop()
+                progress.set(1.0)
                 messagebox.showerror("Error", "Overwrite failed.")
+        else:
+            update_status("Formatting failed.")
+            progress.stop()
+            progress.set(1.0)
+            messagebox.showerror("Format Error", "Formatting the drive failed.")
         enable_controls()
 
     threading.Thread(target=process).start()
@@ -248,7 +254,7 @@ app.title("USBZero - Advanced USB Wiper")
 app.geometry("900x600")
 app.resizable(False, False)
 try:
-    icon_path = resource_path("usbzero_icon_blue_final_v3.ico")
+    icon_path = resource_path("assets/usbzero_icon_blue_final_v3.ico")
     # print(f"Resolved path for icon: {icon_path}")
     if not os.path.exists(icon_path):
         # print(f"WARNING: Icon file not found at the specified path: {icon_path}")
@@ -265,7 +271,7 @@ app.grid_columnconfigure(0, weight=1)
 
 # Logo
 try:
-    logo_image = ctk.CTkImage(light_image=Image.open(resource_path("flash-drive-blue-converted.png")), size=(80, 80))
+    logo_image = ctk.CTkImage(light_image=Image.open(resource_path("assets/flash-drive-blue-converted.png")), size=(80, 80))
     logo_label = ctk.CTkLabel(app, image=logo_image, text="")
     logo_label.grid(row=0, column=0, padx=20, pady=20, sticky="nw")
 except Exception:
@@ -333,7 +339,7 @@ progress_frame = ctk.CTkFrame(tab_main, fg_color="#23272e", border_width=2, bord
 progress_frame.grid(row=3, column=0, padx=30, pady=(10, 20), sticky="ew")
 progress_frame.grid_columnconfigure(0, weight=1)
 ctk.CTkLabel(progress_frame, text="Progress & Status", font=("Arial", 15, "bold"), anchor="w").grid(row=0, column=0, sticky="w", padx=15, pady=(10, 2))
-progress = ctk.CTkProgressBar(progress_frame, width=600, height=18, progress_color="#1e90ff")
+progress = ctk.CTkProgressBar(progress_frame, width=720, height=22, progress_color="#1e90ff")
 progress.set(0)
 progress.grid(row=1, column=0, sticky="ew", padx=15, pady=5)
 status_label = ctk.CTkLabel(progress_frame, text="", font=("Arial", 12, "italic"))
@@ -461,7 +467,7 @@ poll_tab_change()
 # --- About Tab ---
 
 try:
-    about_logo_image = ctk.CTkImage(light_image=Image.open(resource_path("flash-drive-blue-converted.png")), size=(80, 80))
+    about_logo_image = ctk.CTkImage(light_image=Image.open(resource_path("assets/flash-drive-blue-converted.png")), size=(80, 80))
     about_logo_label = ctk.CTkLabel(tab_about, image=about_logo_image, text="")
     about_logo_label.pack(padx=40, pady=(40, 10), anchor="w")
 except Exception:
